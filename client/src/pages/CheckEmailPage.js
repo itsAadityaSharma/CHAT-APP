@@ -1,7 +1,7 @@
 import React from "react";
 
 const CheckEmailPage = () => {
-  return <div></div>;
+  return <div>Check Email</div>;
 };
 
 export default CheckEmailPage;
