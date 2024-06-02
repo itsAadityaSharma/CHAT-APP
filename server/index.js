@@ -3,9 +3,12 @@ const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/connectDB");
 const router = require("./Router/index");
+const cookieParser = require("cookie-parser");
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
+
 app.use(
   cors({
     origin: process.env.FRONTEND_URL,
