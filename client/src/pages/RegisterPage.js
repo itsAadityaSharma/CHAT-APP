@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { IoClose } from "react-icons/io5";
 
 const RegisterPage = () => {
   const [data, setData] = useState({
@@ -8,7 +9,7 @@ const RegisterPage = () => {
     profile_pic: "",
   });
 
-  const [uploadPhoto, setUploadPhoto] = useState("");
+  const [uploadPhoto, setUploadPhoto] = useState(null);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -16,15 +17,29 @@ const RegisterPage = () => {
     setData(newData);
   };
   const handleUpload = (e) => {
+    // debugger;
     const file = e.target.files[0];
     setUploadPhoto(file);
+    e.target.value = null;
   };
+  const handleClearUploadPhoto = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    setUploadPhoto(null);
+  };
+  const handleSubmit = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+  };
+
+  console.log("FFILE :", uploadPhoto);
+  useEffect(() => {}, [uploadPhoto]);
 
   return (
     <div className="mt-5">
       <div className="bg-white w-full max-w-sm mx-2 rounded overflow-hidden p-4">
         <h3>Welcome to Chat App</h3>
-        <form>
+        <form className="grid gap-4 mt-5" onSubmit={(e) => handleSubmit(e)}>
           <div className="flex flex-col gap-1">
             <label htmlFor="name">Name : </label>
             <input
@@ -67,11 +82,19 @@ const RegisterPage = () => {
             <label htmlFor="profile_pic">
               Photo:
               <div className="h-14 bg-slate-200 flex justify-center items-center border rounded hover:border-primary cursor-pointer">
-                <p>
-                  {uploadPhoto.name
+                <p className="text-sm max-w-[300px] text-ellipsis line-clamp-1">
+                  {uploadPhoto?.name
                     ? uploadPhoto.name
                     : "Upload Profile Picture"}
                 </p>
+                {uploadPhoto?.name && (
+                  <button
+                    className="text-lg ml-2 hover:text-red-600"
+                    onClick={(e) => handleClearUploadPhoto(e)}
+                  >
+                    <IoClose />
+                  </button>
+                )}
               </div>
             </label>
             <input
@@ -82,6 +105,7 @@ const RegisterPage = () => {
               onChange={(e) => handleUpload(e)}
             ></input>
           </div>
+          <button>Register</button>
         </form>
       </div>
     </div>

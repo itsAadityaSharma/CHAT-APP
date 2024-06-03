@@ -7,8 +7,6 @@ import MessagePage from "../components/MessagePage";
 import App from "../App";
 import AuthLayouts from "../layout";
 
-//2:00:00
-
 const router = createBrowserRouter([
   {
     path: "/",
