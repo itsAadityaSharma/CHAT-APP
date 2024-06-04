@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 const RegisterPage = () => {
   const [data, setData] = useState({
@@ -30,14 +31,14 @@ const RegisterPage = () => {
   const handleSubmit = (e) => {
     e.stopPropagation();
     e.preventDefault();
+    console.log(data);
   };
 
-  console.log("FFILE :", uploadPhoto);
-  useEffect(() => {}, [uploadPhoto]);
+  // useEffect(() => {}, [uploadPhoto]);
 
   return (
     <div className="mt-5">
-      <div className="bg-white w-full max-w-sm mx-2 rounded overflow-hidden p-4">
+      <div className="bg-white w-full max-w-sm mx-2 rounded overflow-hidden p-4 mx-auto">
         <h3>Welcome to Chat App</h3>
         <form className="grid gap-4 mt-5" onSubmit={(e) => handleSubmit(e)}>
           <div className="flex flex-col gap-1">
@@ -105,8 +106,20 @@ const RegisterPage = () => {
               onChange={(e) => handleUpload(e)}
             ></input>
           </div>
-          <button>Register</button>
+          <button className="bg-primary text-lg px-4 py-1 hover:bg-secondary rounded mt-2 font-bold text-white leading-relaxed tracking-wide">
+            Register
+          </button>
         </form>
+        <p className="my-3 text-center">
+          Already have account ?{" "}
+          <Link
+            to={"/email"}
+            className="hover:text-primary font-semibold
+          "
+          >
+            Login
+          </Link>
+        </p>
       </div>
     </div>
   );
