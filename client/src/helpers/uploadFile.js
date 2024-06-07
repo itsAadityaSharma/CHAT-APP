@@ -7,7 +7,10 @@ const uploadFile = async (file) => {
 
   const response = await fetch(url, {
     body: formData,
+    method: "POST",
   });
   const responseData = await response.json();
   return responseData;
 };
+
+export default uploadFile;

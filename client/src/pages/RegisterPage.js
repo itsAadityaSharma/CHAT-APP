@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import uploadFile from "../helpers/uploadFile";
 
 const RegisterPage = () => {
   const [data, setData] = useState({
@@ -17,10 +18,15 @@ const RegisterPage = () => {
     const newData = { ...data, [name]: value };
     setData(newData);
   };
-  const handleUpload = (e) => {
-    // debugger;
+  const handleUpload = async (e) => {
     const file = e.target.files[0];
+    const uploadPhoto = await uploadFile(file);
     setUploadPhoto(file);
+    setData((prev) => ({
+      ...prev,
+      profile_pic: uploadPhoto?.url,
+    }));
+    console.log("Data", data);
     e.target.value = null;
   };
   const handleClearUploadPhoto = (e) => {
@@ -28,13 +34,26 @@ const RegisterPage = () => {
     e.preventDefault();
     setUploadPhoto(null);
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.stopPropagation();
     e.preventDefault();
-    console.log(data);
-  };
+    // debugger;
+    try {
+      const URL = `http://localhost:8080/api/register`;
 
-  // useEffect(() => {}, [uploadPhoto]);
+      console.log("URL", URL);
+
+      const response = await fetch(URL, {
+        body: JSON.stringify(data),
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+      });
+
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="mt-5">

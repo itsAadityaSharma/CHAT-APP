@@ -16,11 +16,12 @@ async function registerUser(req, res) {
 
     const user = new UserModel(payload);
     const userSave = await user.save();
+    console.log(userSave);
     return res
       .status(201)
       .json({ message: "Saved Success", data: userSave, success: true });
   } catch (error) {
-    return res.status(500).json({
+    res.status(500).json({
       message: error.message || error,
     });
   }

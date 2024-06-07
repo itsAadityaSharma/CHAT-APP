@@ -6,15 +6,10 @@ const router = require("./Router/index");
 const cookieParser = require("cookie-parser");
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(
-  cors({
-    origin: process.env.FRONTEND_URL,
-    credentials: true,
-  })
-);
 const PORT = process.env.PORT || 8080;
 
 app.get("/", (req, res) => {
