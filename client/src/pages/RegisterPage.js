@@ -39,7 +39,7 @@ const RegisterPage = () => {
     e.preventDefault();
     // debugger;
     try {
-      const URL = `http://localhost:8080/api/register`;
+      const URL = `${process.env.REACT_APP_BACKEND_URL}/api/register`;
 
       console.log("URL", URL);
 
