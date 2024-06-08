@@ -7,12 +7,12 @@ async function checkEmail(request, response) {
     if (!checkEmail) {
       return response
         .status(400)
-        .json({ message: "user not exist", error: true });
+        .json({ message: "User not exist", error: true });
     }
 
     return response
       .status(200)
-      .json({ message: "user Verified", data: checkEmail });
+      .json({ message: "User Verified", data: checkEmail });
   } catch (error) {
     response.status(500).json({ message: error });
   }

@@ -12,7 +12,7 @@ async function checkPassword(request, response) {
     if (!verifyPassword) {
       return response
         .status(400)
-        .json({ message: "Please check passowrd", error: true });
+        .json({ message: "Please check password", error: true });
     }
 
     const tokenData = {
@@ -27,11 +27,17 @@ async function checkPassword(request, response) {
       http: true,
       secure: true,
     };
+    //// Convert the Mongoose document to a plain JavaScript object
+    const userObj = user.toObject();
+    // Delete the password from the plain object
+    delete userObj.password;
 
-    return response
-      .cookie("token", token, cookieOptions)
-      .status(200)
-      .json({ message: "Login Successful", success: true });
+    return response.cookie("token", token, cookieOptions).status(200).json({
+      message: "Login Successful",
+      success: true,
+      token: token,
+      data: userObj,
+    });
   } catch (err) {
     response.status(500).json({ message: err, error: true });
   }
