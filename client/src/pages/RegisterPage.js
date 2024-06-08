@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import uploadFile from "../helpers/uploadFile";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
   const [data, setData] = useState({
@@ -12,6 +14,7 @@ const RegisterPage = () => {
   });
 
   const [uploadPhoto, setUploadPhoto] = useState(null);
+  const navigate = useNavigate();
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -48,10 +51,25 @@ const RegisterPage = () => {
         method: "POST",
         headers: { "Content-type": "application/json" },
       });
+      const resData = await response.json();
 
-      console.log(response);
+      console.log(resData);
+      if (resData.error) {
+        toast.error(resData.message);
+      } else {
+        toast.success(resData.message);
+        setData({
+          name: "",
+          email: "",
+          password: "",
+          profile_pic: "",
+        });
+        setUploadPhoto(null);
+        navigate("/email");
+      }
     } catch (error) {
       console.log(error);
+      toast.error(error?.response?.data?.message);
     }
   };
 

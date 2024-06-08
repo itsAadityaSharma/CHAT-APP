@@ -8,7 +8,7 @@ async function registerUser(req, res) {
     if (checkEmail) {
       return res
         .status(400)
-        .json({ message: "user already exist", error: true });
+        .json({ message: "User already exist", error: true });
     }
 
     const salt = await bcryptjs.genSalt(10);
@@ -21,7 +21,11 @@ async function registerUser(req, res) {
     console.log(userSave);
     return res
       .status(201)
-      .json({ message: "Saved Success", data: userSave, success: true });
+      .json({
+        message: "User registered sucessfully",
+        data: userSave,
+        success: true,
+      });
   } catch (error) {
     return res.status(500).json({
       message: error.message || error,
