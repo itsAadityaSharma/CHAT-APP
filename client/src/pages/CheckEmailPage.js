@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { PiUserCircle } from "react-icons/pi";
+import Avatar from "../components/Avatar";
 
 const CheckEmailPage = () => {
   const [data, setData] = useState({
@@ -57,9 +58,7 @@ const CheckEmailPage = () => {
   return (
     <div className="mt-5">
       <div className="bg-white w-full max-w-sm mx-2 rounded overflow-hidden p-4 mx-auto">
-        <div className="w-fit mx-auto mb-2">
-          <PiUserCircle size={80} />
-        </div>
+        <Avatar></Avatar>
         <h3>Welcome to Chat App</h3>
 
         <form className="grid gap-4 mt-5" onSubmit={(e) => handleSubmit(e)}>

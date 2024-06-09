@@ -12,7 +12,7 @@ async function checkPassword(request, response) {
     if (!verifyPassword) {
       return response
         .status(400)
-        .json({ message: "Please check password", error: true });
+        .json({ message: "Invalid password", error: true });
     }
 
     const tokenData = {

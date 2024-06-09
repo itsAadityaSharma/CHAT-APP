@@ -3,6 +3,7 @@ import { IoClose } from "react-icons/io5";
 import { Link, useLocation, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import Avatar from "../components/Avatar";
 
 const CheckPasswordPage = () => {
   const [data, setData] = useState({
@@ -62,22 +63,9 @@ const CheckPasswordPage = () => {
   return (
     <div className="mt-5">
       <div className="bg-white w-full max-w-sm mx-2 rounded overflow-hidden p-4 mx-auto">
-        <h3>Welcome to Chat App</h3>
+        <Avatar profile={location?.state?.profile_pic}></Avatar>
+        <h3>Welcome to Chat App, {location?.state?.name}</h3>
         <form className="grid gap-4 mt-5" onSubmit={(e) => handleSubmit(e)}>
-          {/* <div className="flex flex-col gap-1">
-            <label htmlFor="email">Email : </label>
-            <input
-              required
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Enter your Email"
-              className="bg-slate-100 px-2 py-1 focus:outline-primary"
-              value={data.email}
-              onChange={(e) => handleOnChange(e)}
-            ></input>
-          </div> */}
-
           <div className="flex flex-col gap-1">
             <label htmlFor="password">Password : </label>
             <input
@@ -96,6 +84,15 @@ const CheckPasswordPage = () => {
             Login
           </button>
         </form>
+        <p className="my-3 text-center">
+          <Link
+            to={"/forgot-password"}
+            className="hover:text-primary font-semibold
+          "
+          >
+            Forgot Password ?
+          </Link>
+        </p>
       </div>
     </div>
   );
