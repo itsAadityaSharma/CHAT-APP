@@ -5,6 +5,9 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import Avatar from "../components/Avatar";
 
+import { useDispatch } from "react-redux";
+import { setToken } from "../redux/userSlice";
+
 const CheckPasswordPage = () => {
   const [data, setData] = useState({
     password: "",
@@ -13,6 +16,7 @@ const CheckPasswordPage = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -40,7 +44,6 @@ const CheckPasswordPage = () => {
       });
       const resData = await response.json();
 
-      console.log(resData);
       if (resData.error) {
         toast.error(resData.message);
       } else {
@@ -48,6 +51,8 @@ const CheckPasswordPage = () => {
         setData({
           email: "",
         });
+        dispatch(setToken(resData.token));
+        console.log("Token : ", resData.token);
         navigate("/");
       }
     } catch (error) {
