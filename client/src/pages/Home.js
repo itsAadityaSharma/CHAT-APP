@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { loggedInUser, loggedIntoken, setUser } from "../redux/userSlice";
 import Sidebar from "../components/Sidebar";
 
@@ -8,6 +8,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const stateUser = useSelector(loggedInUser);
   const token = useSelector(loggedIntoken);
+  const navigate = useNavigate();
 
   const fetchUserDetails = async () => {
     try {
@@ -22,6 +23,9 @@ const Home = () => {
       const responseData = await response.json();
       if (responseData.success) {
         dispatch(setUser(responseData.data));
+        if (responseData.data.logout) {
+          navigate("/email");
+        }
         // console.log("userDetails", responseData.data);
       }
     } catch (error) {
