@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
 import { loggedInUser, loggedIntoken, setUser } from "../redux/userSlice";
+import Sidebar from "../components/Sidebar";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -12,10 +13,11 @@ const Home = () => {
     try {
       const URL = `${process.env.REACT_APP_BACKEND_URL}/api/userDetails`;
       const response = await fetch(URL, {
-        url: URL,
-        // withCredentials: true,
-        credentials: "include",
-        method: "GET",
+        body: JSON.stringify({
+          token: token,
+        }),
+        headers: { "Content-Type": "application/json" },
+        method: "POST",
       });
       const responseData = await response.json();
       if (responseData.success) {
@@ -34,8 +36,10 @@ const Home = () => {
     fetchUserDetails();
   }, []);
   return (
-    <div>
-      HOMEEE
+    <div className="grid grid-cols-[300px,1fr] h-screen max-h-screen">
+      <section className="bg-white">
+        <Sidebar></Sidebar>
+      </section>
       <section>
         <Outlet></Outlet>
       </section>

@@ -5,7 +5,7 @@ require("dotenv").config();
 const getUserDetailsFromToken = async (token) => {
   if (!token) {
     return {
-      message: "Session out",
+      message: "Session out , no token",
       logout: true,
     };
   }
