@@ -9,7 +9,7 @@ import Avatar from "./Avatar";
 import EditUserDetails from "./EditUserDetails";
 
 const Sidebar = () => {
-  const [selected, setSelected] = useState("");
+  const [selected, setSelected] = useState("chat");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const stateUser = useSelector(loggedInUser);
@@ -34,7 +34,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full grid grid-cols-[48px,1fr]">
       <div className="bg-slate-100 h-full w-12 rounded-tr-md rounded-br-lg py-5 flex flex-col justify-between">
         <div>
           <div
@@ -75,6 +75,15 @@ const Sidebar = () => {
           </div>
         </div>
       </div>
+
+      <div className="w-full">
+        <div className="h-16 flex items-center">
+          <h2 className="text-xl font-bold p-4 text-slate-800">Message</h2>
+        </div>
+        <div className="bg-slate-200 p-[0.5px]"></div>
+        <div className="h-[calc(100vh-65px)] overflow-x-hidden overflow-y-auto scrollbar"></div>
+      </div>
+
       {editUserDetails ? (
         <EditUserDetails setEditUserDetails={setEditUserDetails} />
       ) : (

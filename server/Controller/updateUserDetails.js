@@ -3,7 +3,7 @@ const UserModel = require("../models/UserModel");
 
 async function updateUserDetails(req, res) {
   try {
-    const token = req.cookies.token || "";
+    const token = req.body.token;
     if (!token) {
       return res.status(200).json({
         message: "You are logged out",
@@ -19,9 +19,12 @@ async function updateUserDetails(req, res) {
       },
       { new: true }
     );
+
+    const updatedUser = updateUser.toObject();
+    delete updatedUser.password;
     return res.status(200).json({
       message: "User Updated",
-      data: updateUser,
+      data: updatedUser,
     });
   } catch (error) {
     return res.status(500).json({
