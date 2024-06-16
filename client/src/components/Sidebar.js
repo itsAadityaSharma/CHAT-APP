@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { loggedInUser, setToken, setUser } from "../redux/userSlice";
 import Avatar from "./Avatar";
 import EditUserDetails from "./EditUserDetails";
+import { FiArrowUpLeft } from "react-icons/fi";
+import SearchUser from "./SearchUser";
 
 const Sidebar = () => {
   const [selected, setSelected] = useState("chat");
@@ -14,6 +16,8 @@ const Sidebar = () => {
   const dispatch = useDispatch();
   const stateUser = useSelector(loggedInUser);
   const [editUserDetails, setEditUserDetails] = useState(false);
+  const [allUser, setAllUser] = useState([]);
+  const [openSearchUser, setOpenSearchUser] = useState(false);
 
   const handleLogOut = async (e) => {
     setSelected("logout");
@@ -51,7 +55,10 @@ const Sidebar = () => {
               selected === "user" && "bg-slate-400"
             }`}
             title="Add friend"
-            onClick={() => setSelected("user")}
+            onClick={() => {
+              setSelected("user");
+              setOpenSearchUser(!openSearchUser);
+            }}
           >
             <FaUserPlus size={25} />
           </div>
@@ -81,13 +88,29 @@ const Sidebar = () => {
           <h2 className="text-xl font-bold p-4 text-slate-800">Message</h2>
         </div>
         <div className="bg-slate-200 p-[0.5px]"></div>
-        <div className="h-[calc(100vh-65px)] overflow-x-hidden overflow-y-auto scrollbar"></div>
+        <div className="h-[calc(100vh-65px)] overflow-x-hidden overflow-y-auto scrollbar">
+          {allUser.length === 0 && (
+            <div className="mt-10">
+              <div className="flex justify-center items-center my-4 text-slate-500">
+                <FiArrowUpLeft size={50} />
+              </div>
+              <p className="text-lg text-center text-slate-400">
+                Explore user to start a new conversation
+              </p>
+            </div>
+          )}
+        </div>
       </div>
 
-      {editUserDetails ? (
+      {/* edit user details */}
+
+      {editUserDetails && (
         <EditUserDetails setEditUserDetails={setEditUserDetails} />
-      ) : (
-        <></>
+      )}
+
+      {/* search user */}
+      {openSearchUser && (
+        <SearchUser onClose={() => setOpenSearchUser(false)} />
       )}
     </div>
   );

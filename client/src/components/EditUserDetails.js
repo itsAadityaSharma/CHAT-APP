@@ -54,7 +54,9 @@ const EditUserDetails = ({ setEditUserDetails }) => {
         <p className="text-sm">Edit profile details</p>
         <form className="grid gap-3 mt-3 " onSubmit={handSubmit}>
           <div className="flex flex-col gap-1">
-            <label htmlFor="name">Name : </label>
+            <label className="font-semibold" htmlFor="name">
+              Name :{" "}
+            </label>
             <input
               className="w-full py-1 px-2 focus:outline-primary border-0.5"
               type="text"
@@ -65,9 +67,12 @@ const EditUserDetails = ({ setEditUserDetails }) => {
             ></input>
           </div>
           <div>
-            Photo :<Avatar profile={data.profile_pic}></Avatar>
+            <p className="font-semibold">Photo : </p>
+            <Avatar profile={data.profile_pic}></Avatar>
             <label htmlFor="profile_pic">
-              <div className="font-semibold">Change photo</div>
+              <div className="font-semibold border-primary border px-4 py-1 rounded w-40">
+                Change photo
+              </div>
             </label>
             <input
               id="profile_pic"
