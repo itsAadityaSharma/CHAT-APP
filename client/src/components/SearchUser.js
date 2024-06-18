@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { IoSearchOutline } from "react-icons/io5";
 import CircularCoding from "./CircularCoding";
 import UserSearchCard from "./UserSearchCard";
-
-const SearchUser = () => {
+import { IoMdClose } from "react-icons/io";
+const SearchUser = ({ setOpenSearchUser }) => {
   const [searchUser, setSearchUser] = useState([]);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState("");
@@ -67,9 +67,21 @@ const SearchUser = () => {
           {searchUser.length !== 0 &&
             !loading &&
             searchUser.map((user, index) => {
-              return <UserSearchCard key={user._id} user={user} />;
+              return (
+                <div onClick={() => setOpenSearchUser(false)}>
+                  <UserSearchCard key={user._id} user={user} />
+                </div>
+              );
             })}
         </div>
+      </div>
+      <div
+        className="absolute top-0 right-0 text-2xl p-2 lg:text-4xl hover:text-white"
+        onClick={() => setOpenSearchUser(false)}
+      >
+        <button>
+          <IoMdClose />
+        </button>
       </div>
     </div>
   );

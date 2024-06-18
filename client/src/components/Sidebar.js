@@ -110,7 +110,10 @@ const Sidebar = () => {
 
       {/* search user */}
       {openSearchUser && (
-        <SearchUser onClose={() => setOpenSearchUser(false)} />
+        <SearchUser
+          setOpenSearchUser={setOpenSearchUser}
+          onClose={() => setOpenSearchUser(false)}
+        />
       )}
     </div>
   );
